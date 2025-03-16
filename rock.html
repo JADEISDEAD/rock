@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Pet Rock</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+      padding: 20px;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #2c3e50;
+    }
+
+    #rockImage {
+      width: 200px;
+      height: 200px;
+      margin-top: 50px;
+    }
+
+    #feedButton {
+      padding: 20px 40px;
+      font-size: 24px;
+      background-color: #ff5733;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+    }
+
+    #feedButton:hover {
+      background-color: #c0392b;
+    }
+
+    #insultBox {
+      font-size: 24px;
+      color: #e74c3c;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-left: 20px;
+      margin-right: 20px;
+      border: 2px solid #e74c3c;
+      padding: 10px;
+      display: none;
+      max-width: 600px;
+      margin-top: 50px;
+      position: relative;
+      z-index: 2;
+    }
+	       .custom-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        .custom-button img {
+            width: 40px;
+            height: 40px;
+        }
+        .custom-button img:hover {
+            opacity: 0.8;
+        }
+  </style>
+</head>
+<body>
+ <a href="http://jadeisdead.com/" target="_blank" class="custom-button">
+        <img src="https://media.tenor.com/yso9Ncqwm5UAAAAi/click-subscribe.gif" alt="Custom Button">
+    </a>
+
+  <h1>Virtual Pet Rock</h1>
+  
+  <img id="rockImage" src="https://media.tenor.com/AEG4QmJrO_UAAAAj/holy-crap.gif" alt="Virtual Pet Rock">
+  
+  <button id="feedButton">Feed</button>
+  
+  <div id="insultBox"></div>
+
+  <script>
+    const insults = [
+      "You call that a click? Pathetic.",
+      "The rock is judging you right now.",
+      "You can't even keep a rock happy, can you?",
+      "Just give up already. The rock is disappointed.",
+      "What did the rock ever do to deserve this?",
+      "Wow, this is just embarrassing. The rock is sad.",
+      "You think the rock cares? It doesn't.",
+      "The rock would be more entertained if you left.",
+      "You're really failing at keeping the rock happy.",
+      "The rock would have better company than you.",
+      "Is this the best you can do? Seriously?",
+      "Don't you have anything better to do than disappoint a rock?",
+      "You should be ashamed of yourself for disappointing the rock.",
+      "The rock is starting to lose patience.",
+      "Your click rate is as bad as your life choices.",
+      "You really need to step it up. The rock's about to leave.",
+      "Rock is getting tired of your pathetic attempts.",
+      "A pet rock is smarter than you.",
+      "You're embarrassing yourself in front of a rock.",
+      "The rock’s patience is running thin.",
+      "You can’t even satisfy a rock. How does that feel?",
+      "The rock is ignoring you.",
+      "You’re failing miserably at keeping the rock entertained.",
+      "The rock is now officially fed up.",
+      "Maybe it’s time to abandon this whole thing.",
+      "The rock just sighed. Did you hear that?",
+      "The rock could be having a better time elsewhere.",
+      "You’re on the verge of getting kicked out of the rock’s life.",
+      "How many chances do you need? The rock’s done.",
+      "The rock knows it could do better without you.",
+      "This is getting sad. Even the rock feels bad for you.",
+      "You’re not even trying at this point, are you?",
+      "The rock has seen better days than today.",
+      "Honestly, the rock has had enough of your nonsense.",
+      "You can’t even keep a rock happy.",
+      "You’re a disappointment to the rock.",
+      "The rock deserves better.",
+      "At this rate, the rock might leave you.",
+      "Every click is just more misery for the rock.",
+      "You're lucky the rock doesn't just leave.",
+      "The rock is clearly the better one here.",
+      "You can’t even handle a rock, it’s not that hard.",
+      "The rock wonders why it’s even bothering with you.",
+      "The rock is starting to question everything.",
+      "You disappoint even a rock.",
+      "The rock is silently judging you.",
+      "Maybe the rock would be better off without you."
+    ];
+
+    let insultInterval;
+    let lastClickTime = Date.now();
+    let insultShown = false;
+
+    const feedButton = document.getElementById('feedButton');
+    const insultBox = document.getElementById('insultBox');
+    const rockImage = document.getElementById('rockImage');
+
+    feedButton.addEventListener('click', resetInsultTimer);
+
+    function resetInsultTimer() {
+      lastClickTime = Date.now();
+      insultBox.style.display = 'none';
+      insultShown = false; // Reset insult display flag
+    }
+
+    function giveInsult() {
+      if (!insultShown) {  // Only give one insult every 5 seconds
+        const randomInsult = insults[Math.floor(Math.random() * insults.length)];
+        insultBox.textContent = randomInsult;
+        insultBox.style.display = 'block';
+        insultShown = true; // Set flag to true after displaying an insult
+      }
+    }
+
+    function checkClickTime() {
+      if (Date.now() - lastClickTime > 5000) {  // If more than 5 seconds have passed
+        giveInsult();
+        lastClickTime = Date.now(); // Reset the click time to now
+      }
+    }
+
+    function startGame() {
+      insultInterval = setInterval(checkClickTime, 1000);  // Check every second
+    }
+
+    startGame();
+  </script>
+
+</body>
+</html>
